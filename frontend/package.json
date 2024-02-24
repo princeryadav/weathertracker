@@ -1,0 +1,12 @@
+{
+    "name": "weather-tracker",
+    "version": "1.0.0",
+    "description": "Weather tracker web application for getting weather info for any city.",
+    "main": "index.html",
+    "scripts": {
+      "start": "npx serve"
+    },
+    "dependencies": {
+    }
+  }
+  

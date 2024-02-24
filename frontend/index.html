@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <title>Weather Tracker</title>
+    <style>
+        body{
+            background-color: #2ea8a2;
+        }
+        #toast {
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            padding: 20px;
+            z-index: 99999;
+        }
+
+        .weather-card .search {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .weather-card .search input {
+            width: 100%;
+            height: 50px;
+            font-size: 18px;
+            flex: 1;
+            color: #555;
+            padding: 10px 25px;
+            outline: none;
+            background: #ebfffc;
+            border: none;
+            border-radius: 30px;
+        }
+
+        .weather-card .search button {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            margin-left: 16px;
+            border: none;
+            outline: 0;
+            background: #ebfffc;
+            border-radius: 50%;
+        }
+
+        .weather-card .search button i {
+            font-size: 20px;
+            color: #333;
+        }
+
+        .weather h1 {
+            font-size: 80px;
+            font-weight: 500;
+            margin-top: -30px;
+        }
+
+        .weather h2 {
+            font-size: 40px;
+            font-weight: 400;
+            margin-top: -25px;
+        }
+
+        .weather .weather-icon {
+            width: 60%;
+            height: 200px;
+            padding: 10px;
+        }
+
+        .details {
+            display: flex;
+            margin-top: 50px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .details .humi {
+            filter: brightness(10000%);
+        }
+
+        .details img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .details .info {
+            margin-left: 10px;
+        }
+
+        .details .humidity,
+        .wind {
+            font-size: 25px;
+            font-weight: 500;
+            margin-bottom: -5px;
+        }
+
+        .col {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+            margin-top: -20px;
+        }
+
+        .weather-card {
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            padding: 35px 30px;
+            margin: 30px auto 0;
+            border-radius: 20px;
+            color: #fff;
+            background: linear-gradient(120deg, #00feba, #5b548a);
+        }
+    </style>
+</head>
+<style></style>
+
+<body>
+    <div id="app">
+        <section class="section">
+            <div class="container">
+                <div class="weather-card">
+                    <div class="search">
+                        <input type="text" v-model="search" placeholder="Enter city name" spellcheck="false">
+                        <button @click="getWeatherData()">
+                            Search
+                        </button>
+                    </div>
+
+                    <div class="weather">
+                        <img v-if="weatherObj?.current?.condition" class="weather-icon"
+                            :src="`${weatherObj?.current?.condition?.icon}`">
+                        <h2 class="city">{{ weatherObj?.location?.name }}</h2>
+                        <h1 class="temp"> {{ weatherObj?.current?.temp_c }} °C </h1>
+                        <div class="details">
+                            <div style="display: flex;" class="col">
+                                <div class="info">
+                                    <p class="humidity">{{ weatherObj?.current?.humidity }}</p>
+                                    <p>Humidity</p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="info">
+                                    <p class="wind">{{weatherObj?.current?.wind_kph}}</p>
+                                    <p>Wind Speed</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="has-text-centered" v-show="!weatherObj">
+                    <h2 class="is-size-4 has-text-info">Loading...</h2>
+                </div>
+
+                <div id="toast" v-show="toast.show" class="container" :class="['has-background-' + toast.type]">
+                    <h2 class="is-size-5 has-text-white">{{ toast.message }}</h2>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
