@@ -1,5 +1,5 @@
 (function () {
-    const API = "http://api.weatherapi.com/v1";
+    const API = "https://api.weatherapi.com/v1";
   
     new Vue({
       el: "#app",
