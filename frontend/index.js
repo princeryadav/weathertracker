@@ -4,7 +4,6 @@
     new Vue({
       el: "#app",
       data: {
-        showModal: false,
         search:'Mumbai',
         weatherObj: {},
         toast: {
@@ -21,7 +20,6 @@
            axios
             .get(`${API}/current.json?key=9065ab7a89f4407d8df91550220807&q=${this.search}`)
             .then((response) => {
-                debugger;
               this.weatherObj = response.data;
               this.search = '';
             })
